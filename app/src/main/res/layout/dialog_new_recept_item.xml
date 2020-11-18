@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dip">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/recept_nev_form"
+        app:layout_constraintVertical_bias="0.88" />
+
+    <EditText
+        android:id="@+id/ReceptName_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:autofillHints=""
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/btn_receptkategoriak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/hozzavalok_form"
+        app:layout_constraintBottom_toTopOf="@+id/Hozzavalok_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/Hozzavalok_form"
+        android:layout_width="345dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints=""
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Hozzavalok_form"
+        app:layout_constraintVertical_bias="0.337"
+        tools:ignore="LabelFor" />
+
+    <Spinner
+        android:id="@+id/spinner_kategoriak"
+        android:layout_width="219dp"
+        android:layout_height="wrap_content"
+        android:text="@string/kategoriak_form"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/ReceptKategoriak_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_receptkategoriak"
+        android:layout_width="219dp"
+        android:layout_height="wrap_content"
+        android:text="@string/kategoriak_form"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/ReceptKategoriak_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/ReceptKategoriak_form"
+        android:layout_width="345dp"
+        android:layout_height="108dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</LinearLayout>

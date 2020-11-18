@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Recipeify</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="new_recept_item">Új recept</string>
+    <string name="ok">Létrehozás</string>
+    <string name="cancel">Mégse</string>
+    <string name="recept_nev_form">Recept neve</string>
+    <string name="kategoriak_form">Kategóriák</string>
+    <string name="hozzavalok_form">Hozzávalók</string>
+    <string name="hozzavalo">Új hozzávaló</string>
+    <string name="uj_hozzavalo">Új hozzávaló</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="fooldal">Főoldal</string>
+    <string name="receptlista">Receptlista</string>
+    <string name="mit_fozzek_ma">Mit főzzek ma?</string>
+    <string name="etrendtervezo">Étrendtervező</string>
+    <string name="kategoriak_kezelese">Kategóriák kezelése</string>
+    <string name="kedvenc_receptek">Kedvenc receptek</string>
+    <string name="szures">Szűrés</string>
+    <string name="osszes_recept">Összes recept</string>
+    <string name="nyomdd_meg_a_gombot_hogy_megtudd">Nyomdd meg a gombot, hogy megtudd!</string>
+    <string name="mit_f_zzek_ma_nyomdd_meg_a_gombot_hogy_megtudd">Mit főzzek ma?</string>
+    <string name="random_generator">Random generator</string>
+    <string name="tudnival_k">Tudnivalók</string>
+    <string name="kateg_ri_k">Kategóriák</string>
+    <string name="kateg_ria_neve">Kategória neve:</string>
+    <string name="recipeify_by_roland_surmann">Recipeify by Roland Surmann</string>
+    <string name="betervezett_tkez_sek">Betervezett étkezések</string>
+    <string name="new_etkezes_item">Új étkezés felvétele</string>
+    <string name="valassz_datumot">Válassz dátumot:</string>
+</resources>

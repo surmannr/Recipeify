@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    >
+    <!-- Bottom View Start-->
+    <LinearLayout
+        android:id="@+id/bottom_wrapper"
+        android:background="#a4b0be"
+        android:layout_width="160dp"
+        android:weightSum="2"
+        android:backgroundTint="#a4b0be"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/btn_EtkezesRemove"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#a4b0be"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_delete_24"
+            app:tint="@color/icons" />
+        <ImageButton
+            android:id="@+id/btn_EtkezesSync"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#a4b0be"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_event_note_24"
+            app:tint="@color/icons" />
+    </LinearLayout>
+    <!-- Bottom View End-->
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:padding="10dp"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--What you want to show in SurfaceView-->
+        <TextView
+            android:id="@+id/receptnev"
+            android:layout_width="200dp"
+            android:gravity = "center|start|start"
+            android:layout_marginStart="15dp"
+            android:layout_height="match_parent"
+            tools:text="Név" />
+
+        <TextView
+            android:id="@+id/etrend_datum"
+            android:layout_marginStart="20dp"
+            android:layout_width="150dp"
+            android:gravity = "center|start|start"
+            android:layout_height="match_parent"
+            tools:text="2020.11.17. lejárt" />
+
+
+    </LinearLayout>
+    <!-- Surface View End -->
+
+
+</com.daimajia.swipe.SwipeLayout>

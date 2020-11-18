@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item android:id="@+id/nav_fooldal"
+            android:title="@string/fooldal"
+            android:icon="@drawable/ic_home"/>
+        <item android:id="@+id/nav_receptlista"
+            android:title="@string/receptlista"
+            android:icon="@drawable/ic_receipt_list"/>
+        <item android:id="@+id/nav_mitfozzekma"
+            android:title="@string/mit_fozzek_ma"
+            android:icon="@drawable/ic_mit_fozzek_ma"/>
+        <item android:id="@+id/nav_etrendtervezo"
+            android:title="@string/etrendtervezo"
+            android:icon="@drawable/ic_etrend_tervezo"/>
+        <item android:id="@+id/nav_kategoriabeallitas"
+            android:title="@string/kategoriak_kezelese"
+            android:icon="@drawable/ic_category_settings"/>
+    </group>
+</menu>
