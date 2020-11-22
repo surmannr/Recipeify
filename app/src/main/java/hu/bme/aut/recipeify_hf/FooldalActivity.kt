@@ -1,6 +1,8 @@
 package hu.bme.aut.recipeify_hf
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +11,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +22,12 @@ import com.google.android.material.navigation.NavigationView
 import hu.bme.aut.recipeify.adapter.ReceptAdapter
 import hu.bme.aut.recipeify.data.Recept
 import hu.bme.aut.recipeify.database.ReceptDatabase
+import hu.bme.aut.recipeify.fragments.NewReceptDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
 class FooldalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -133,6 +142,12 @@ class FooldalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             recyclerView.invalidate()
         }
     }
+
+    override fun ItemModify(idx: Int) {
+        Toast.makeText(applicationContext,"Csak a Receptlista nézeten szerkeszthető!", Toast.LENGTH_LONG).show()
+        runNewActivity("Receptlista")
+    }
+
     // Intentkezelés
     fun runNewActivity(intent: String){
         val myIntent: Intent = Intent()

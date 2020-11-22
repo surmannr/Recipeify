@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/bottom_wrapper"
         android:background="#a4b0be"
-        android:layout_width="180dp"
+        android:layout_width="240dp"
         android:weightSum="2"
         android:backgroundTint="#a4b0be"
         android:layout_height="match_parent">
@@ -29,6 +29,14 @@
             android:layout_height="80dp"
             android:src="@drawable/ic_baseline_delete_24"
             app:tint="@color/icons" />
+        <ImageButton
+            android:id="@+id/btn_ReceptEdit"
+            android:layout_width="80dp"
+            android:layout_weight="1"
+            android:background="#a4b0be"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:tint="@color/icons" />
     </LinearLayout>
     <!-- Bottom View End-->
     <!-- Surface View Start -->
@@ -36,30 +44,17 @@
         android:padding="10dp"
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="5">
         <!--What you want to show in SurfaceView-->
         <TextView
             android:id="@+id/receptnev"
-            android:layout_width="260dp"
+            android:layout_width="0dp"
             android:gravity = "center|start|start"
+            android:layout_weight="5"
+            android:layout_marginStart="20dp"
             android:layout_height="match_parent"
             tools:text="Név" />
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_marginStart="2dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"/>
-        <Button
-            android:id="@+id/btn_tudnivalok"
-            android:layout_marginStart="10dp"
-            android:textAlignment="textEnd"
-            android:layout_height="wrap_content"
-            tools:text="Tudnivalók:"
-            android:theme="@style/ButtonStyle"
-            android:textSize="8sp"
-            android:contentDescription="@string/tudnival_k"
-            android:layout_width="wrap_content"
-            tools:ignore="SmallSp" />
 
 
     </LinearLayout>

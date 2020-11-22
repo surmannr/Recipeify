@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Spinner
+import android.widget.TimePicker
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isNotEmpty
 import androidx.fragment.app.DialogFragment
@@ -24,6 +25,7 @@ class NewEtkezesDialogFragment : DialogFragment() {
 
     lateinit var spinner_receptnev: Spinner
     lateinit var datepicker: DatePicker
+    lateinit var timepicker: TimePicker
 
     private lateinit var _context: Context
 
@@ -62,12 +64,15 @@ class NewEtkezesDialogFragment : DialogFragment() {
         var month: Int = datepicker.month+1
         var day : Int = datepicker.dayOfMonth
 
+        var hour: Int = timepicker.hour
+        var min: Int = timepicker.minute
+
         var calendar: Calendar = Calendar.getInstance()
 
-        calendar.set(year,month,day)
+        calendar.set(year,month,day,hour,min)
 
-        Log.d("TESZT", "Datum: ev/ho/nap: " + year + " " + month + " " + day)
-        Log.d("TESZT2", "Datum: ev/ho/nap: " + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.MONTH) + " " + calendar.get(Calendar.DAY_OF_MONTH))
+        Log.d("TESZT", "Datum: ev/ho/nap: " + year + " " + month + " " + day + " " + hour + " " + min)
+        //Log.d("TESZT2", "Datum: ev/ho/nap: " + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.MONTH) + " " + calendar.get(Calendar.DAY_OF_MONTH))
         return Etkezes(
             id = null,
             recept_neve = spinner_receptnev.selectedItem.toString(),
@@ -81,6 +86,8 @@ class NewEtkezesDialogFragment : DialogFragment() {
             LayoutInflater.from(context).inflate(R.layout.dialog_new_etkezes_item, null)
             spinner_receptnev = contentView.findViewById(R.id.spinner_receptek)
             datepicker = contentView.findViewById(R.id.datum_valasztas)
+            timepicker = contentView.findViewById(R.id.ido_valasztas)
+            timepicker.setIs24HourView(true);
             spinner_receptnev.adapter = ArrayAdapter(
                 _context,
                 R.layout.support_simple_spinner_dropdown_item,

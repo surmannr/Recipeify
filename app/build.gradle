@@ -52,8 +52,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.mxn.soul:flowingdrawer-core:2.1.0'
     implementation 'com.nineoldandroids:library:2.4.0'
-    compile "com.daimajia.swipelayout:library:1.2.0@aar"
-    compile 'co.dift.ui.swipetoaction:library:1.1'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'co.dift.ui.swipetoaction:library:1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
 }

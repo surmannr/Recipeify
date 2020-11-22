@@ -161,6 +161,24 @@ class KategoriaSzerkesztoActivity : AppCompatActivity(), NavigationView.OnNaviga
         }
     }
 
+    override fun ItemModify(idx: Int) {
+        thread {
+            var kategoria: Kategoria = database.kategoriaDao().getAll()[idx]
+            runOnUiThread {
+                NewKategoriaDialogFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("KATEGORIA_NEV", kategoria.nev)
+                        putInt("KIVALASZTOTT_ID", idx)
+                    }
+                }.show(
+                        supportFragmentManager,
+                        NewKategoriaDialogFragment.TAG
+                )
+            }
+        }
+
+    }
+
     override fun onKategoriaItemCreated(newItem: Kategoria) {
         thread {
             val newId = database.kategoriaDao().insert(newItem)
@@ -172,5 +190,15 @@ class KategoriaSzerkesztoActivity : AppCompatActivity(), NavigationView.OnNaviga
             }
         }
     }
+
+    override fun onKategoriaModify(item: Kategoria, kivalasztott: Int?) {
+         thread {
+             database.kategoriaDao().getAll()[kivalasztott!!].nev = item.nev
+             runOnUiThread {
+                 adapter.updateItem(item,kivalasztott)
+             }
+         }
+    }
+
 
 }

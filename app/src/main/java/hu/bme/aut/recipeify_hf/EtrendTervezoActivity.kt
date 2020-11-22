@@ -46,9 +46,7 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     private lateinit var adapter: EtrendAdapter
     private var receptek: ArrayList<String> = ArrayList()
 
-    val callbackId = 42
-
-    var etkezesToSync: Etkezes? = null
+    lateinit var items : List<Etkezes>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -164,7 +162,7 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
     private fun loadItemsInBackground() {
         thread {
-            val items = database.etkezesDao().getAll()
+            items = database.etkezesDao().getAll()
             runOnUiThread {
                 adapter.update(items)
             }
@@ -185,33 +183,36 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         }
     }
     override fun onItemSyncToCalendar(idx: Int) {
-        //getItemAsync(idx)
         try {
-/*
+
             val values = ContentValues()
-            values.put(CalendarContract.Events.DTSTART, System.currentTimeMillis())
-            values.put(CalendarContract.Events.DTEND, System.currentTimeMillis() + 60000)
-            values.put(CalendarContract.Events.TITLE, "Vége")
-            values.put(CalendarContract.Events.DESCRIPTION, "Legyen már vége az órának")
-            values.put(CalendarContract.Events.CALENDAR_ID, 1)
-            values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID())
+            values.put(CalendarContract.Events.DTSTART, items[idx].datum.timeInMillis)
+            values.put(CalendarContract.Events.DTEND, items[idx].datum.timeInMillis.plus(1200000))
+            values.put(CalendarContract.Events.TITLE, "Étkezés")
+            values.put(CalendarContract.Events.DESCRIPTION, items[idx].recept_neve+" elfogyasztása/elkészítése.")
+            values.put(CalendarContract.Events.CALENDAR_ID, 3)
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
 
             val uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
 
-            Log.d("URI", uri.toString())*/
+            Log.d("URI", uri.toString())
 
-
+/*
+            val calendarEvent: Calendar = Calendar.getInstance()
             var inte : Intent= Intent(Intent.ACTION_INSERT)
             inte.setData(CalendarContract.Events.CONTENT_URI)
             inte.putExtra(CalendarContract.Events.CALENDAR_ID, 1)
             inte.putExtra(CalendarContract.Events.TITLE, "Vége")
             inte.putExtra(CalendarContract.Events.DESCRIPTION, "Legyen már vége az órának")
-            inte.putExtra(CalendarContract.Events.DTSTART, System.currentTimeMillis())
-            inte.putExtra(CalendarContract.Events.DTEND, System.currentTimeMillis() + 60000)
+            inte.putExtra(CalendarContract.Events.DTSTART, calendarEvent.timeInMillis)
+            inte.putExtra(CalendarContract.Events.DTEND, calendarEvent.timeInMillis + 60000)
+            inte.putExtra(CalendarContract.Events.DURATION, System.currentTimeMillis() + 60000)
+            inte.putExtra(CalendarContract.Events.RRULE, "FREQ=ONCE")
             inte.putExtra(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
 
-            startActivity(inte)
 
+            startActivity(inte)
+*/
                 Toast.makeText(this, "Az étkezés szinkronizálva a naptárral!", Toast.LENGTH_SHORT)
                     .show()
 
@@ -228,6 +229,7 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             )
             runOnUiThread {
                 adapter.addItem(newEtkezesItem)
+                loadItemsInBackground()
             }
         }
     }
@@ -239,14 +241,6 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
         }
         task.await()
-    }
-    fun getItemAsync(idx: Int){
-        CoroutineScope(Dispatchers.Main).launch {
-            val task = async(Dispatchers.IO) {
-                database.etkezesDao().getAll().get(idx)
-            }
-            etkezesToSync = task.await()
-        }
     }
 
 

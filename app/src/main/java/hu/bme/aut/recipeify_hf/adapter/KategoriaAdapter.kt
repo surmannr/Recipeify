@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.recipeify.data.Kategoria
 import hu.bme.aut.recipeify_hf.R
+import hu.bme.aut.recipeify_hf.fragments.NewKategoriaDialogFragment
 
 
 class KategoriaAdapter(private val listener: KategoriaItemClickListener) :
@@ -25,6 +26,7 @@ class KategoriaAdapter(private val listener: KategoriaItemClickListener) :
 
         var nev: TextView = v.findViewById(R.id.kategorianev)
         var removebtn: ImageButton = v.findViewById(R.id.btn_KategoriaRemove)
+        var editbtn: ImageButton = v.findViewById(R.id.btn_kategoriaEdit)
         var item: Kategoria? = null
 
         init {
@@ -32,7 +34,12 @@ class KategoriaAdapter(private val listener: KategoriaItemClickListener) :
                 listener.onItemDelete(adapterPosition)
                 delete(adapterPosition)
             }
+            editbtn.setOnClickListener{
+                listener.ItemModify(adapterPosition)
+
+            }
         }
+
     }
 
     override fun onBindViewHolder(holder: KategoriaViewHolder, position: Int) {
@@ -60,9 +67,15 @@ class KategoriaAdapter(private val listener: KategoriaItemClickListener) :
         notifyItemRemoved(idx)
     }
 
+    fun updateItem(item: Kategoria, idx: Int){
+        items[idx] = item
+        notifyDataSetChanged()
+    }
+
     interface KategoriaItemClickListener {
         fun onItemChanged(item: Kategoria)
         fun onItemDelete(idx: Int)
+        fun ItemModify(idx: Int)
     }
 
 }

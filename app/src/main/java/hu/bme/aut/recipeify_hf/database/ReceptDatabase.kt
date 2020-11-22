@@ -13,7 +13,7 @@ import hu.bme.aut.recipeify.data.Kategoria
 import hu.bme.aut.recipeify.data.Recept
 
 @TypeConverters(Converters::class)
-@Database(entities = [Recept::class, Kategoria::class, Etkezes::class], version = 3,exportSchema = false)
+@Database(entities = [Recept::class, Kategoria::class, Etkezes::class], version = 5,exportSchema = false)
 abstract class ReceptDatabase : RoomDatabase() {
     abstract fun receptDao(): ReceptDao
     abstract fun kategoriaDao(): KategoriaDao

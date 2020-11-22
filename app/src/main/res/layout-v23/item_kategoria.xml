@@ -8,7 +8,7 @@
     <!-- Bottom View Start-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
-        android:layout_width="80dp"
+        android:layout_width="160dp"
         android:background="#a4b0be"
         android:weightSum="1"
         android:layout_height="match_parent">
@@ -20,6 +20,15 @@
             android:background="#a4b0be"
             android:layout_height="80dp"
             android:src="@drawable/ic_baseline_delete_24"
+            app:tint="@color/icons" />
+
+        <ImageButton
+            android:id="@+id/btn_kategoriaEdit"
+            android:layout_width="80dp"
+            android:layout_weight="1"
+            android:background="#a4b0be"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_edit_24"
             app:tint="@color/icons" />
     </LinearLayout>
     <!-- Bottom View End-->

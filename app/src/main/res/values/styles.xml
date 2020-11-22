@@ -31,4 +31,8 @@
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">cut</item>
     </style>
+
+    <style name="ListViewColor" parent="@android:style/Widget.ListView">
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

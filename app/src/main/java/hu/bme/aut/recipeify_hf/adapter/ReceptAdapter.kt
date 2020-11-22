@@ -3,11 +3,13 @@ package hu.bme.aut.recipeify.adapter
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.media.Image
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import hu.bme.aut.recipeify.data.Kategoria
 import hu.bme.aut.recipeify.data.Recept
 import hu.bme.aut.recipeify_hf.R
 
@@ -24,9 +26,9 @@ class ReceptAdapter(private val listener: ReceptItemClickListener) :
 
     inner class ReceptViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var nev: TextView = v.findViewById(R.id.receptnev)
-        var tudnivalok: Button = v.findViewById(R.id.btn_tudnivalok)
         val btn_kedvenc: ImageButton = v.findViewById(R.id.btn_ReceptFavorite)
         val btn_remove: ImageButton = v.findViewById(R.id.btn_ReceptRemove)
+        val btn_edit: ImageButton = v.findViewById(R.id.btn_ReceptEdit)
         var item: Recept? = null
         init{
              btn_kedvenc.setOnClickListener(){
@@ -37,6 +39,9 @@ class ReceptAdapter(private val listener: ReceptItemClickListener) :
                  listener.onItemDelete(adapterPosition)
                  delete(adapterPosition)
              }
+            btn_edit.setOnClickListener{
+                listener.ItemModify(adapterPosition)
+            }
         }
     }
 
@@ -47,7 +52,6 @@ class ReceptAdapter(private val listener: ReceptItemClickListener) :
         if(item.kedvenc) holder.btn_kedvenc.setColorFilter(Color.RED)
         else holder.btn_kedvenc.setColorFilter(Color.DKGRAY)
         holder.item = item
-        holder.tudnivalok.text = "Tudnivalók"
     }
 
     override fun getItemCount(): Int {
@@ -58,9 +62,9 @@ class ReceptAdapter(private val listener: ReceptItemClickListener) :
         notifyItemInserted(items.size - 1)
     }
 
-    fun update(shoppingItems: List<Recept>) {
+    fun update(_items: List<Recept>) {
         items.clear()
-        items.addAll(shoppingItems)
+        items.addAll(_items)
         notifyDataSetChanged()
     }
 
@@ -78,10 +82,17 @@ class ReceptAdapter(private val listener: ReceptItemClickListener) :
         items.removeAt(idx)
         notifyItemRemoved(idx)
     }
+    fun updateItem(item: Recept, idx: Int){
+        items.removeAt(idx)
+        notifyItemRemoved(idx)
+        items.add(idx,item)
+        notifyDataSetChanged()
+    }
 
     interface ReceptItemClickListener {
         fun onItemChanged(item: Recept)
         fun onItemChangeFavorite(idx: Int)
         fun onItemDelete(idx: Int)
+        fun ItemModify(idx: Int)
     }
 }

@@ -9,8 +9,8 @@
     <LinearLayout
         android:id="@+id/bottom_wrapper"
         android:background="#a4b0be"
-        android:layout_width="160dp"
-        android:weightSum="2"
+        android:layout_width="240dp"
+        android:weightSum="3"
         android:backgroundTint="#a4b0be"
         android:layout_height="match_parent">
 
@@ -29,6 +29,14 @@
             android:background="#a4b0be"
             android:layout_height="80dp"
             android:src="@drawable/ic_baseline_event_note_24"
+            app:tint="@color/icons" />
+        <ImageButton
+            android:id="@+id/btn_EtkezesEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#a4b0be"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_edit_24"
             app:tint="@color/icons" />
     </LinearLayout>
     <!-- Bottom View End-->

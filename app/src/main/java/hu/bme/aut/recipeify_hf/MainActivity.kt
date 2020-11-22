@@ -1,6 +1,8 @@
 package hu.bme.aut.recipeify_hf
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +18,8 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,9 +28,11 @@ import androidx.room.Room
 import co.dift.ui.SwipeToAction
 import com.google.android.material.navigation.NavigationView
 import hu.bme.aut.recipeify.adapter.ReceptAdapter
+import hu.bme.aut.recipeify.data.Kategoria
 import hu.bme.aut.recipeify.data.Recept
 import hu.bme.aut.recipeify.database.ReceptDatabase
 import hu.bme.aut.recipeify.fragments.NewReceptDialogFragment
+import hu.bme.aut.recipeify_hf.fragments.NewKategoriaDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,6 +58,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val nr : NewReceptDialogFragment = NewReceptDialogFragment()
+        nr.setDataKategoriak(kategoriak)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
@@ -76,6 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         spinnerToltes()
         fab.setOnClickListener{
+            nr.setDataKategoriak(kategoriak)
             nr.show(
                     supportFragmentManager,
                     NewReceptDialogFragment.TAG
@@ -183,6 +191,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun ItemModify(idx: Int) {
+        CoroutineScope(Dispatchers.Main).launch{
+            val task = async(Dispatchers.IO) {
+                database.receptDao().getAll()[idx]
+            }
+            var recept: Recept = task.await()
+            var nr : NewReceptDialogFragment = NewReceptDialogFragment()
+            nr.setDataKategoriak(kategoriak)
+            nr.apply {
+                arguments = Bundle().apply {
+                    putString("RECEPT_NEV", recept.nev)
+                    putString("RECEPT_HOZZAVALOK", recept.hozzavalok)
+                    putStringArrayList("RECEPT_KATEGORIAK", recept.kategoria)
+                    putString("RECEPT_URISTRING", recept.kep.toString())
+                    putInt("KIVALASZTOTT_ID", idx)
+                }
+            }.show(
+                    supportFragmentManager,
+                    NewReceptDialogFragment.TAG
+            )
+        }
+    }
+
     override fun onReceptItemCreated(newItem: Recept) {
         thread {
             val newId = database.receptDao().insert(newItem)
@@ -193,6 +224,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 adapter.addItem(newReceptItem)
             }
         }
+    }
+
+    override fun onReceptModify(item: Recept, kivalasztott: Int?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val recept = database.receptDao().getAll().get(kivalasztott!!)
+            recept.nev = item.nev
+            recept.hozzavalok = item.hozzavalok
+            recept.kategoria = item.kategoria
+            recept.kep = item.kep
+            database.receptDao().update(recept)
+        }
+        adapter.updateItem(item,kivalasztott!!)
     }
 
     // Intentkezelés
