@@ -8,7 +8,7 @@ import java.util.*
 
 @Entity(tableName = "etkezes")
 data class Etkezes(
-    @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long?,
-    @ColumnInfo(name = "recept") val recept_neve: String,
-    @ColumnInfo(name = "datum") val datum: Calendar
+        @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long?,
+        @ColumnInfo(name = "recept") var recept_neve: String,
+        @ColumnInfo(name = "datum") var datum: Calendar
 )

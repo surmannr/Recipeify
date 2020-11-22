@@ -17,6 +17,7 @@ import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.recipeify.data.Etkezes
 import hu.bme.aut.recipeify.data.Kategoria
+import hu.bme.aut.recipeify.data.Recept
 import hu.bme.aut.recipeify_hf.R
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
@@ -38,6 +39,7 @@ class EtrendAdapter(private val listener: EtrendItemClickListener) :
         var receptnev: TextView = v.findViewById(R.id.receptnev)
         var removebtn: ImageButton = v.findViewById(R.id.btn_EtkezesRemove)
         var syncbtn: ImageButton = v.findViewById(R.id.btn_EtkezesSync)
+        var editbtn: ImageButton = v.findViewById(R.id.btn_EtkezesEdit)
         var datum: TextView = v.findViewById(R.id.etrend_datum)
         var item: Etkezes? = null
 
@@ -48,6 +50,9 @@ class EtrendAdapter(private val listener: EtrendItemClickListener) :
             }
             syncbtn.setOnClickListener{
                 listener.onItemSyncToCalendar(adapterPosition)
+            }
+            editbtn.setOnClickListener {
+                listener.ItemModify(adapterPosition)
             }
         }
     }
@@ -67,6 +72,7 @@ class EtrendAdapter(private val listener: EtrendItemClickListener) :
                 holder.datum.text = formatter.format(item.datum.time)+ " lejárt!"
                 holder.datum.setTextColor(Color.RED)
             }
+                 item.datum.add(Calendar.MONTH, 1)
 
         holder.item = item
     }
@@ -90,10 +96,18 @@ class EtrendAdapter(private val listener: EtrendItemClickListener) :
         notifyItemRemoved(idx)
     }
 
+    fun updateItem(item: Etkezes, idx: Int){
+        items.removeAt(idx)
+        notifyItemRemoved(idx)
+        items.add(idx,item)
+        notifyDataSetChanged()
+    }
+
     interface EtrendItemClickListener {
         fun onItemChanged(item: Etkezes)
         fun onItemDelete(idx: Int)
         fun onItemSyncToCalendar(idx: Int)
+        fun ItemModify(idx: Int)
     }
 
 }

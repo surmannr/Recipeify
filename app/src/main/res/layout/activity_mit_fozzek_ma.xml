@@ -12,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:layout_marginTop="55dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,14 +20,14 @@
             android:background="@drawable/shape"
             android:textAlignment="center"
             android:weightSum="8"
-            android:layout_marginTop="150dp"
+            android:foregroundGravity="center"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/mit"
                 android:layout_width="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:layout_height="0dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/mit_f_zzek_ma_nyomdd_meg_a_gombot_hogy_megtudd"
@@ -37,35 +38,38 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="0dp"
-                android:layout_marginTop="-50dp"
                 android:layout_marginBottom="15dp"
                 android:text="@string/nyomdd_meg_a_gombot_hogy_megtudd"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="0dp"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:weightSum="3"
                 android:layout_marginStart="2dp"
                 android:layout_marginEnd="3dp"
                 android:background="@color/prestige_blue"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/receptnev"
-                    android:layout_width="120dp"
-                    android:layout_marginStart="25dp"
-                    android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/szures" />
+                    android:layout_marginStart="25dp"
+                    android:layout_weight="1"
+                    android:text="@string/szures"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
                 <Spinner
                     android:id="@+id/spinner_kategoriak"
-                    android:layout_width="219dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
                     android:layout_height="25dp"
                     android:gravity="center"
+                    android:layout_marginEnd="20dp"
                     android:background="@drawable/shape"
                     android:text="@string/kategoriak_form"
                     android:textAlignment="center" />

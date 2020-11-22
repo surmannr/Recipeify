@@ -2,15 +2,18 @@ package hu.bme.aut.recipeify.fragments
 
 
 import android.R.attr
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +21,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.DialogFragmentNavigatorDestinationBuilder
 import hu.bme.aut.recipeify.data.Recept
 import hu.bme.aut.recipeify_hf.R
+import hu.bme.aut.recipeify_hf.R.*
+import hu.bme.aut.recipeify_hf.R.drawable.*
 
 
 class NewReceptDialogFragment : DialogFragment() {
@@ -56,9 +61,7 @@ class NewReceptDialogFragment : DialogFragment() {
         super.onAttach(context)
         _context = context
         arguments?.getString("RECEPT_NEV")?.let {
-            Log.d("TESZT_IT", it)
             receptnev = it
-            if(receptnev!==null)Log.d("TESZT_NEV", receptnev!!)
         }
         arguments?.getString("RECEPT_HOZZAVALOK")?.let {
             recepthozzavalok = it
@@ -80,25 +83,25 @@ class NewReceptDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         if(receptnev===null){
             return AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.new_recept_item)
+                    .setTitle(string.new_recept_item)
                     .setView(getContentView())
-                    .setPositiveButton(R.string.ok) { _, _ ->
+                    .setPositiveButton(string.ok) { _, _ ->
                         if (isValid()) {
                             listener.onReceptItemCreated(getReceptItem())
                         }
                     }
-                    .setNegativeButton(R.string.cancel, null)
+                    .setNegativeButton(string.cancel, null)
                     .create()
         }
         return AlertDialog.Builder(requireContext())
-                .setTitle(R.string.new_recept_item2)
+                .setTitle(string.new_recept_item2)
                 .setView(getContentView())
-                .setPositiveButton(R.string.ok2) { _, _ ->
+                .setPositiveButton(string.ok2) { _, _ ->
                     if (isValid()) {
                         listener.onReceptModify(getReceptItem(), idx)
                     }
                 }
-                .setNegativeButton(R.string.cancel, null)
+                .setNegativeButton(string.cancel, null)
                 .create()
     }
 
@@ -107,6 +110,10 @@ class NewReceptDialogFragment : DialogFragment() {
                 android.R.layout.simple_spinner_dropdown_item, kategoria_nevek)
         btnKategoria.setOnClickListener(){
             selectedItems.addFirst(spinnerKategoria.selectedItem.toString())
+            var param : ViewGroup.LayoutParams = receptkategoriakEditForm.layoutParams
+            param.height =
+                (param.height + 50 * _context.resources.displayMetrics.density).toInt();
+            receptkategoriakEditForm.layoutParams = param
             receptkategoriakEditForm.height.plus(50)
             //Log.d("TESZT", spinnerKategoria.selectedItem.toString())
             receptkategoriakEditForm.adapter = ArrayAdapter<String>(this._context, android.R.layout.simple_list_item_1, selectedItems)
@@ -136,9 +143,10 @@ class NewReceptDialogFragment : DialogFragment() {
     }
 
 
+    @SuppressLint("ResourceType")
     private fun getContentView(): View {
         val contentView =
-            LayoutInflater.from(context).inflate(R.layout.dialog_new_recept_item, null)
+            LayoutInflater.from(context).inflate(layout.dialog_new_recept_item, null)
             receptnevEditForm = contentView.findViewById(R.id.ReceptName_form)
             if(receptnev!==null) receptnevEditForm.setText(receptnev)
             recepthozzavalokEditForm = contentView.findViewById(R.id.Hozzavalok_form)
@@ -150,6 +158,7 @@ class NewReceptDialogFragment : DialogFragment() {
             btnKepvalasztas = contentView.findViewById(R.id.btn_kephozzaadas)
             kep = contentView.findViewById(R.id.kep)
             if(imageUri!==null) kep.setImageURI(imageUri)
+            else kep.setImageResource(R.drawable.noimage)
             receptkat_buttonset()
             btnKepvalasztas.setOnClickListener{
                 val intent = Intent()
@@ -187,6 +196,11 @@ class NewReceptDialogFragment : DialogFragment() {
             }
 
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        selectedItems.clear()
     }
 
     companion object {

@@ -23,7 +23,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.android.material.navigation.NavigationView
 import hu.bme.aut.recipeify.data.Etkezes
+import hu.bme.aut.recipeify.data.Recept
 import hu.bme.aut.recipeify.database.ReceptDatabase
+import hu.bme.aut.recipeify.fragments.NewReceptDialogFragment
 import hu.bme.aut.recipeify_hf.adapter.EtrendAdapter
 import hu.bme.aut.recipeify_hf.fragments.NewEtkezesDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -184,9 +186,10 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
     override fun onItemSyncToCalendar(idx: Int) {
         try {
-
+            val dat : Calendar = items[idx].datum
+            dat.add(Calendar.MONTH,-1)
             val values = ContentValues()
-            values.put(CalendarContract.Events.DTSTART, items[idx].datum.timeInMillis)
+            values.put(CalendarContract.Events.DTSTART, dat.timeInMillis)
             values.put(CalendarContract.Events.DTEND, items[idx].datum.timeInMillis.plus(1200000))
             values.put(CalendarContract.Events.TITLE, "Étkezés")
             values.put(CalendarContract.Events.DESCRIPTION, items[idx].recept_neve+" elfogyasztása/elkészítése.")
@@ -221,6 +224,28 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         }
     }
 
+    override fun ItemModify(idx: Int) {
+        CoroutineScope(Dispatchers.Main).launch{
+            val task = async(Dispatchers.IO) {
+                database.etkezesDao().getAll()[idx]
+            }
+            var etkezes: Etkezes = task.await()
+            var nr : NewEtkezesDialogFragment = NewEtkezesDialogFragment()
+            receptek.add(0,etkezes.recept_neve)
+            nr.recept_nevek = receptek
+            nr.apply {
+                arguments = Bundle().apply {
+                    putString("RECEPT_NEVE", etkezes.recept_neve)
+                    putLong("DATUM", etkezes.datum.timeInMillis)
+                    putInt("KIVALASZTOTT_ID", idx)
+                }
+            }.show(
+                    supportFragmentManager,
+                    NewEtkezesDialogFragment.TAG
+            )
+        }
+    }
+
     override fun onEtkezesItemCreated(newItem: Etkezes) {
         thread {
             val newId = database.etkezesDao().insert(newItem)
@@ -232,6 +257,16 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 loadItemsInBackground()
             }
         }
+    }
+
+    override fun onEtkezesModify(item: Etkezes, kivalasztott: Int?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val etkezes = database.etkezesDao().getAll().get(kivalasztott!!)
+            etkezes.recept_neve = item.recept_neve
+            etkezes.datum = item.datum
+            database.etkezesDao().update(etkezes)
+        }
+        adapter.updateItem(item,kivalasztott!!)
     }
     // Spinnerhez lekérjük a receptek neveit
     fun spinnerToltes() = CoroutineScope(Dispatchers.Main).launch {
