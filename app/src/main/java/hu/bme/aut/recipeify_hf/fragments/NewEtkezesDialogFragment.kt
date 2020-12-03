@@ -53,6 +53,7 @@ class NewEtkezesDialogFragment : DialogFragment() {
         arguments?.getLong("DATUM")?.let {
             datum = Calendar.getInstance()
             datum?.timeInMillis = it
+            datum?.add(Calendar.MONTH,-3)
         }
 
         listener = context as? NewEtkezesDialogListener

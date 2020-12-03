@@ -18,22 +18,4 @@ abstract class ReceptDatabase : RoomDatabase() {
     abstract fun receptDao(): ReceptDao
     abstract fun kategoriaDao(): KategoriaDao
     abstract fun etkezesDao(): EtkezesDao
-
-    companion object {
-        private var INSTANCE: ReceptDatabase? = null
-
-        fun getInstance(context: Context): ReceptDatabase {
-            if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                    ReceptDatabase::class.java, "recept.db")
-                    .fallbackToDestructiveMigration()
-                    .build()
-            }
-            return INSTANCE!!
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
 }

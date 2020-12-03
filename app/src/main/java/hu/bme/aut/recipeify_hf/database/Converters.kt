@@ -31,20 +31,6 @@ class Converters {
     }
 
     @TypeConverter
-    fun toRecept(gsonObj:String): Recept?{
-        if(gsonObj==="") return (null);
-        val recept = Gson().fromJson(gsonObj,Recept::class.java);
-        return recept;
-    }
-    @TypeConverter
-    fun getRecept(rec : Recept?) : String{
-        if(rec===null){
-            return "";
-        }
-        val jsonString : String = Gson().toJson(rec);
-        return jsonString;
-    }
-    @TypeConverter
     fun toKategoria(jsonObj:String): ArrayList<String>?{
         if(jsonObj==="") return (null);
         val sType = object : TypeToken<ArrayList<String>>() {}.type;

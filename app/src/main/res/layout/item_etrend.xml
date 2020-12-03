@@ -21,7 +21,8 @@
             android:background="#a4b0be"
             android:layout_height="80dp"
             android:src="@drawable/ic_baseline_delete_24"
-            app:tint="@color/icons" />
+            app:tint="@color/icons"
+            android:contentDescription="@string/image"/>
         <ImageButton
             android:id="@+id/btn_EtkezesSync"
             android:layout_width="0dp"
@@ -29,7 +30,8 @@
             android:background="#a4b0be"
             android:layout_height="80dp"
             android:src="@drawable/ic_baseline_event_note_24"
-            app:tint="@color/icons" />
+            app:tint="@color/icons"
+            android:contentDescription="@string/image"/>
         <ImageButton
             android:id="@+id/btn_EtkezesEdit"
             android:layout_width="0dp"
@@ -37,7 +39,8 @@
             android:background="#a4b0be"
             android:layout_height="80dp"
             android:src="@drawable/ic_baseline_edit_24"
-            app:tint="@color/icons" />
+            app:tint="@color/icons"
+            android:contentDescription="@string/image" />
     </LinearLayout>
     <!-- Bottom View End-->
     <!-- Surface View Start -->

@@ -61,7 +61,7 @@ class EtrendAdapter(private val listener: EtrendItemClickListener) :
     override fun onBindViewHolder(holder: EtrendViewHolder, position: Int) {
         val formatter: SimpleDateFormat = SimpleDateFormat("yyyy.MM.dd. HH:mm")
         val item = items[position]
-        var c : Calendar = Calendar.getInstance()
+        val c : Calendar = Calendar.getInstance()
         holder.receptnev.text = item.recept_neve
         if(item.datum !== null)
             c.add(Calendar.DATE, -1)

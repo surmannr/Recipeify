@@ -112,11 +112,11 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.nav_fooldal -> runNewActivity("Fooldal")
-            R.id.nav_receptlista -> runNewActivity("Receptlista")
-            R.id.nav_mitfozzekma -> runNewActivity("Mitfozzekma")
-            R.id.nav_etrendtervezo -> runNewActivity("Etrendtervezo")
-            R.id.nav_kategoriabeallitas -> runNewActivity("Kategoriaszerkeszto")
+            R.id.nav_fooldal -> runNewActivity(getString(R.string.nav_fooldal))
+            R.id.nav_receptlista -> runNewActivity(getString(R.string.nav_receptlista))
+            R.id.nav_mitfozzekma -> runNewActivity(getString(R.string.nav_mitfozzekma))
+            R.id.nav_etrendtervezo -> runNewActivity(getString(R.string.nav_etrendtervezo))
+            R.id.nav_kategoriabeallitas -> runNewActivity(getString(R.string.nav_kategoriaszerkeszto))
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -133,18 +133,18 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     // Intentkezelés
     fun runNewActivity(intent: String){
         val myIntent: Intent = Intent()
-        if(intent==="Fooldal"){
+        if(intent===getString(R.string.nav_fooldal)){
             myIntent.setClass(this@EtrendTervezoActivity, FooldalActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Receptlista") {
+        } else if(intent===getString(R.string.nav_receptlista)) {
             myIntent.setClass(this@EtrendTervezoActivity, MainActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Mitfozzekma") {
+        } else if(intent===getString(R.string.nav_mitfozzekma)) {
             myIntent.setClass(this@EtrendTervezoActivity, MitFozzekMaActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Etrendtervezo"){
+        } else if(intent===getString(R.string.nav_etrendtervezo)){
             // Itt semmi
-        } else if(intent==="Kategoriaszerkeszto"){
+        } else if(intent===getString(R.string.nav_kategoriaszerkeszto)){
             myIntent.setClass(this@EtrendTervezoActivity, KategoriaSzerkesztoActivity::class.java)
             startActivity(myIntent)
         } else {
@@ -197,25 +197,6 @@ class EtrendTervezoActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
 
             val uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
-
-            Log.d("URI", uri.toString())
-
-/*
-            val calendarEvent: Calendar = Calendar.getInstance()
-            var inte : Intent= Intent(Intent.ACTION_INSERT)
-            inte.setData(CalendarContract.Events.CONTENT_URI)
-            inte.putExtra(CalendarContract.Events.CALENDAR_ID, 1)
-            inte.putExtra(CalendarContract.Events.TITLE, "Vége")
-            inte.putExtra(CalendarContract.Events.DESCRIPTION, "Legyen már vége az órának")
-            inte.putExtra(CalendarContract.Events.DTSTART, calendarEvent.timeInMillis)
-            inte.putExtra(CalendarContract.Events.DTEND, calendarEvent.timeInMillis + 60000)
-            inte.putExtra(CalendarContract.Events.DURATION, System.currentTimeMillis() + 60000)
-            inte.putExtra(CalendarContract.Events.RRULE, "FREQ=ONCE")
-            inte.putExtra(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
-
-
-            startActivity(inte)
-*/
                 Toast.makeText(this, "Az étkezés szinkronizálva a naptárral!", Toast.LENGTH_SHORT)
                     .show()
 

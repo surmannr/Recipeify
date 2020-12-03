@@ -88,11 +88,11 @@ class KategoriaSzerkesztoActivity : AppCompatActivity(), NavigationView.OnNaviga
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.nav_fooldal -> runNewActivity("Fooldal")
-            R.id.nav_receptlista -> runNewActivity("Receptlista")
-            R.id.nav_mitfozzekma -> runNewActivity("Mitfozzekma")
-            R.id.nav_etrendtervezo -> runNewActivity("Etrendtervezo")
-            R.id.nav_kategoriabeallitas -> runNewActivity("Kategoriaszerkeszto")
+            R.id.nav_fooldal -> runNewActivity(getString(R.string.nav_fooldal))
+            R.id.nav_receptlista -> runNewActivity(getString(R.string.nav_receptlista))
+            R.id.nav_mitfozzekma -> runNewActivity(getString(R.string.nav_mitfozzekma))
+            R.id.nav_etrendtervezo -> runNewActivity(getString(R.string.nav_etrendtervezo))
+            R.id.nav_kategoriabeallitas -> runNewActivity(getString(R.string.nav_kategoriaszerkeszto))
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -108,19 +108,19 @@ class KategoriaSzerkesztoActivity : AppCompatActivity(), NavigationView.OnNaviga
     // Intentkezelés
     fun runNewActivity(intent: String){
         val myIntent: Intent = Intent()
-        if(intent==="Fooldal"){
+        if(intent===getString(R.string.nav_fooldal)){
             myIntent.setClass(this@KategoriaSzerkesztoActivity, FooldalActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Receptlista") {
+        } else if(intent===getString(R.string.nav_receptlista)) {
             myIntent.setClass(this@KategoriaSzerkesztoActivity, MainActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Mitfozzekma") {
+        } else if(intent===getString(R.string.nav_mitfozzekma)) {
             myIntent.setClass(this@KategoriaSzerkesztoActivity, MitFozzekMaActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Etrendtervezo"){
+        } else if(intent===getString(R.string.nav_etrendtervezo)){
             myIntent.setClass(this@KategoriaSzerkesztoActivity, EtrendTervezoActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Kategoriaszerkeszto"){
+        } else if(intent===getString(R.string.nav_kategoriaszerkeszto)){
             // Itt semmi
         } else {
             Toast.makeText(this, "Hiba történt", Toast.LENGTH_SHORT).show()

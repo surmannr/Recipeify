@@ -83,11 +83,11 @@ class FooldalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.nav_fooldal -> runNewActivity("Fooldal")
-            R.id.nav_receptlista -> runNewActivity("Receptlista")
-            R.id.nav_mitfozzekma -> runNewActivity("Mitfozzekma")
-            R.id.nav_etrendtervezo -> runNewActivity("Etrendtervezo")
-            R.id.nav_kategoriabeallitas -> runNewActivity("Kategoriaszerkeszto")
+            R.id.nav_fooldal -> runNewActivity(getString(R.string.nav_fooldal))
+            R.id.nav_receptlista -> runNewActivity(getString(R.string.nav_receptlista))
+            R.id.nav_mitfozzekma -> runNewActivity(getString(R.string.nav_mitfozzekma))
+            R.id.nav_etrendtervezo -> runNewActivity(getString(R.string.nav_etrendtervezo))
+            R.id.nav_kategoriabeallitas -> runNewActivity(getString(R.string.nav_kategoriaszerkeszto))
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -145,24 +145,24 @@ class FooldalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     override fun ItemModify(idx: Int) {
         Toast.makeText(applicationContext,"Csak a Receptlista nézeten szerkeszthető!", Toast.LENGTH_LONG).show()
-        runNewActivity("Receptlista")
+        runNewActivity(getString(R.string.nav_receptlista))
     }
 
     // Intentkezelés
     fun runNewActivity(intent: String){
         val myIntent: Intent = Intent()
-        if(intent==="Fooldal"){
+        if(intent===getString(R.string.nav_fooldal)){
             // itt semmit
-        } else if(intent==="Receptlista") {
+        } else if(intent===getString(R.string.nav_receptlista)) {
             myIntent.setClass(this@FooldalActivity, MainActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Mitfozzekma") {
+        } else if(intent===getString(R.string.nav_mitfozzekma)) {
             myIntent.setClass(this@FooldalActivity, MitFozzekMaActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Etrendtervezo"){
+        } else if(intent===getString(R.string.nav_etrendtervezo)){
             myIntent.setClass(this@FooldalActivity, EtrendTervezoActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Kategoriaszerkeszto"){
+        } else if(intent===getString(R.string.nav_kategoriaszerkeszto)){
             myIntent.setClass(this@FooldalActivity, KategoriaSzerkesztoActivity::class.java)
             startActivity(myIntent)
         } else {

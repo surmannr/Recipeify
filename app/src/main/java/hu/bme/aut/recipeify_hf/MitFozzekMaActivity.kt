@@ -71,17 +71,17 @@ class MitFozzekMaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 result.text = resulstString
             }
             else{
-                result.text = "Nem tartozik recept ebbe a kategóriába!"
+                result.text = getString(R.string.no_recept_kategoria)
             }
         }
         spinnerToltes()
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if(kategoriak.get(position)!=="Nincs szűrés")
+                if(kategoriak.get(position)!==getString(R.string.nincs_szures))
                     thread {
-                        val items_l = database.receptDao().getAll().filter { recept -> recept.kategoria.contains(kategoriak.get(position)) }
+                        val itemsById = database.receptDao().getAll().filter { recept -> recept.kategoria.contains(kategoriak.get(position)) }
                         runOnUiThread {
-                            items = items_l as ArrayList<Recept>
+                            items = itemsById as ArrayList<Recept>
                         }
                     } else{
                     loadItemsInBackground()
@@ -114,11 +114,11 @@ class MitFozzekMaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.nav_fooldal -> runNewActivity("Fooldal")
-            R.id.nav_receptlista -> runNewActivity("Receptlista")
-            R.id.nav_mitfozzekma -> runNewActivity("Mitfozzekma")
-            R.id.nav_etrendtervezo -> runNewActivity("Etrendtervezo")
-            R.id.nav_kategoriabeallitas -> runNewActivity("Kategoriaszerkeszto")
+            R.id.nav_fooldal -> runNewActivity(getString(R.string.nav_fooldal))
+            R.id.nav_receptlista -> runNewActivity(getString(R.string.nav_receptlista))
+            R.id.nav_mitfozzekma -> runNewActivity(getString(R.string.nav_mitfozzekma))
+            R.id.nav_etrendtervezo -> runNewActivity(getString(R.string.nav_etrendtervezo))
+            R.id.nav_kategoriabeallitas -> runNewActivity(getString(R.string.nav_kategoriaszerkeszto))
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -134,18 +134,18 @@ class MitFozzekMaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     // Intentkezelés
     fun runNewActivity(intent: String){
         val myIntent: Intent = Intent()
-        if(intent==="Fooldal"){
+        if(intent===getString(R.string.nav_fooldal)){
             myIntent.setClass(this@MitFozzekMaActivity, FooldalActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Receptlista") {
+        } else if(intent===getString(R.string.nav_receptlista)) {
             myIntent.setClass(this@MitFozzekMaActivity, MainActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Mitfozzekma") {
+        } else if(intent===getString(R.string.nav_mitfozzekma)) {
            // Itt semmi
-        } else if(intent==="Etrendtervezo"){
+        } else if(intent===getString(R.string.nav_etrendtervezo)){
             myIntent.setClass(this@MitFozzekMaActivity, EtrendTervezoActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Kategoriaszerkeszto"){
+        } else if(intent===getString(R.string.nav_kategoriaszerkeszto)){
             myIntent.setClass(this@MitFozzekMaActivity, KategoriaSzerkesztoActivity::class.java)
             startActivity(myIntent)
         } else {
@@ -166,7 +166,7 @@ class MitFozzekMaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
             database.kategoriaDao().getAll().forEach {
                 kategoriak.add(it.nev)
             }
-            kategoriak.add(0,"Nincs szűrés")
+            kategoriak.add(0,getString(R.string.nincs_szures))
         }
         task.await()
         spinner.adapter = ArrayAdapter(applicationContext,
@@ -175,9 +175,9 @@ class MitFozzekMaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     private fun loadItemsInBackground() {
         thread {
-            val items_l = database.receptDao().getAll()
+            val items_list = database.receptDao().getAll()
             runOnUiThread {
-                items = items_l as ArrayList<Recept>
+                items = items_list as ArrayList<Recept>
             }
         }
     }

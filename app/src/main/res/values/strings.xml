@@ -43,4 +43,12 @@
     <string name="ok2">Módosítás</string>
     <string name="new_recept_item2">Recept módosítása</string>
     <string name="new_etkezes_item2">Módosítás</string>
+    <string name="nav_fooldal">Fooldal</string>
+    <string name="nav_receptlista">Receptlista</string>
+    <string name="nav_mitfozzekma">Mitfozzekma</string>
+    <string name="nav_etrendtervezo">Etrendtervezo</string>
+    <string name="nav_kategoriaszerkeszto">Kategoriaszerkeszto</string>
+    <string name="nincs_szures">Nincs szűrés</string>
+    <string name="no_recept_kategoria">Nem tartozik recept ebbe a kategóriába!</string>
+    <string name="image">Image</string>
 </resources>

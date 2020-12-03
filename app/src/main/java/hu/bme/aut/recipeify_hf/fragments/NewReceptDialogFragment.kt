@@ -53,7 +53,7 @@ class NewReceptDialogFragment : DialogFragment() {
 
     private lateinit var listener: NewReceptDialogListener
 
-    public fun setDataKategoriak(data: ArrayList<String>){
+    fun setDataKategoriak(data: ArrayList<String>){
         kategoria_nevek = data
     }
 
@@ -115,7 +115,6 @@ class NewReceptDialogFragment : DialogFragment() {
                 (param.height + 50 * _context.resources.displayMetrics.density).toInt();
             receptkategoriakEditForm.layoutParams = param
             receptkategoriakEditForm.height.plus(50)
-            //Log.d("TESZT", spinnerKategoria.selectedItem.toString())
             receptkategoriakEditForm.adapter = ArrayAdapter<String>(this._context, android.R.layout.simple_list_item_1, selectedItems)
             receptkategoriakEditForm.invalidate()
         }
@@ -158,7 +157,7 @@ class NewReceptDialogFragment : DialogFragment() {
             btnKepvalasztas = contentView.findViewById(R.id.btn_kephozzaadas)
             kep = contentView.findViewById(R.id.kep)
             if(imageUri!==null) kep.setImageURI(imageUri)
-            else kep.setImageResource(R.drawable.noimage)
+            else kep.setImageResource(noimage)
             receptkat_buttonset()
             btnKepvalasztas.setOnClickListener{
                 val intent = Intent()
@@ -170,6 +169,10 @@ class NewReceptDialogFragment : DialogFragment() {
                 intent.type = "image/*"
                 startActivityForResult(intent, 9)
             }
+            var param : ViewGroup.LayoutParams = receptkategoriakEditForm.layoutParams
+            if(receptkategoriak !== null)
+            param.height =
+                (param.height + receptkategoriak!!.size * 50 * _context.resources.displayMetrics.density).toInt();
 
         return contentView
     }

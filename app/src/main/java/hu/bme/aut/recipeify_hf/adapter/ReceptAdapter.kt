@@ -45,7 +45,6 @@ class ReceptAdapter(private val listener: ReceptItemClickListener) :
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ReceptViewHolder, position: Int) {
         val item = items[position]
         holder.nev.text = item.nev

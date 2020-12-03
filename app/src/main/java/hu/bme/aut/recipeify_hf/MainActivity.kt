@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if(kategoriak.get(position)!=="Nincs szűrés")
+                if(kategoriak.get(position)!==getString(R.string.nincs_szures))
                 thread {
                     val items = database.receptDao().getAll().filter { recept -> recept.kategoria.contains(kategoriak.get(position)) }
                     runOnUiThread {
@@ -131,11 +131,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.nav_fooldal -> runNewActivity("Fooldal")
-            R.id.nav_receptlista -> runNewActivity("Receptlista")
-            R.id.nav_mitfozzekma -> runNewActivity("Mitfozzekma")
-            R.id.nav_etrendtervezo -> runNewActivity("Etrendtervezo")
-            R.id.nav_kategoriabeallitas -> runNewActivity("Kategoriaszerkeszto")
+            R.id.nav_fooldal -> runNewActivity(getString(R.string.nav_fooldal))
+            R.id.nav_receptlista -> runNewActivity(getString(R.string.nav_receptlista))
+            R.id.nav_mitfozzekma -> runNewActivity(getString(R.string.nav_mitfozzekma))
+            R.id.nav_etrendtervezo -> runNewActivity(getString(R.string.nav_etrendtervezo))
+            R.id.nav_kategoriabeallitas -> runNewActivity(getString(R.string.nav_kategoriaszerkeszto))
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -241,18 +241,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // Intentkezelés
     fun runNewActivity(intent: String){
         val myIntent: Intent = Intent()
-        if(intent==="Fooldal"){
+        if(intent===getString(R.string.nav_fooldal)){
             myIntent.setClass(this@MainActivity, FooldalActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Receptlista") {
+        } else if(intent===getString(R.string.nav_receptlista)) {
             // Itt semmi
-        } else if(intent==="Mitfozzekma") {
+        } else if(intent===getString(R.string.nav_mitfozzekma)) {
             myIntent.setClass(this@MainActivity, MitFozzekMaActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Etrendtervezo"){
+        } else if(intent===getString(R.string.nav_etrendtervezo)){
             myIntent.setClass(this@MainActivity, EtrendTervezoActivity::class.java)
             startActivity(myIntent)
-        } else if(intent==="Kategoriaszerkeszto"){
+        } else if(intent===getString(R.string.nav_kategoriaszerkeszto)){
             myIntent.setClass(this@MainActivity, KategoriaSzerkesztoActivity::class.java)
             startActivity(myIntent)
         } else {
@@ -267,7 +267,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             database.kategoriaDao().getAll().forEach {
                 kategoriak.add(it.nev)
             }
-            kategoriak.add(0,"Nincs szűrés")
+            kategoriak.add(0,getString(R.string.nincs_szures))
         }
         task.await()
         spinner.adapter = ArrayAdapter(applicationContext,
